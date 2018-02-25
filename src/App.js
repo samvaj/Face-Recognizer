@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
@@ -19,6 +21,27 @@ const particleOptions = {
       }
     }
   }            
+}
+
+createNotification = (type) => {
+  return () => {
+    switch (type) {
+      case 'info':
+        NotificationManager.info('Info message');
+        break;
+      case 'success':
+        NotificationManager.success('Success message', 'Title here');
+        break;
+      case 'warning':
+        NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+        break;
+      case 'error':
+        NotificationManager.error('Error message', 'Click me!', 5000, () => {
+          alert('callback');
+        });
+        break;
+    }
+  };
 }
 
 const initialState = {
@@ -100,12 +123,12 @@ class App extends Component {
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count}))
             })
-            .catch(console.log)
+            .catch(this.createNotification('error'))
 
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
-      .catch(err => console.log(err));
+      .catch(err => this.createNotification('error'));
   }
 
   onRouteChange = (route) =>{
