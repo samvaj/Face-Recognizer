@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
@@ -22,7 +22,6 @@ const particleOptions = {
     }
   }            
 }
-
 
 const initialState = {
   
@@ -57,29 +56,6 @@ class App extends Component {
       }
     })
   }
-
-  createNotification = (type) => {
-    return () => {
-      switch (type) {
-        case 'info':
-          NotificationManager.info('Info message');
-          break;
-        case 'success':
-          NotificationManager.success('Success message', 'Title here');
-          break;
-        case 'warning':
-          NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-          break;
-        case 'error':
-          NotificationManager.error('Error message', 'Click me!', 5000, () => {
-            alert('callback');
-          });
-          break;
-      }
-    };
-  }
-  
-
   calculateFaceLocation = (data) =>{
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputImage');
@@ -126,12 +102,12 @@ class App extends Component {
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count}))
             })
-            .catch(this.createNotification('error'))
+            .catch(console.log)
 
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
-      .catch(err => this.createNotification('error'));
+      .catch(err => console.log(err));
   }
 
   onRouteChange = (route) =>{
