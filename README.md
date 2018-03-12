@@ -1,6 +1,9 @@
 •	Developed web application that detects a face in an image by utilizing the Clarifai API
+
 •	Built backend server using Node and Express to relay database and API calls between frontend
+
 •	Stored data in a PostgreSQL database to implement secure registration and sign in features
+
 •	Designed a clean and responsive UI using React and published final product to online hosting service
 
 List of known bugs:
